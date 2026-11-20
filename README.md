@@ -16,6 +16,20 @@ repository never claims that a Desktop release also releases the Web application
 > tagged artifacts whose checksums and release notes have passed the documented
 > release gate.
 
+## Download and quick start
+
+Executable binaries are not committed to the Git source history. After the
+remaining release gates pass, each approved GitHub pre-release provides a
+versioned Windows ZIP as a release asset. The ZIP contains `Companyware.jar`,
+`start-companyware.cmd`, the matching documentation and the JAR checksum. A user
+with a supported Java runtime can unpack the ZIP and start the command file
+without compiling the source. A native EXE may be added only after its separate
+Windows packaging and start/stop gate has passed.
+
+Until such a pre-release is explicitly approved, this repository remains a
+source-only Development Preview. Do not download executable files from commits,
+issues or unofficial mirrors.
+
 Developer setup, plugin authoring, persistence, security and testing are documented
 in [the developer guide](docs/developer-guide.md).
 
