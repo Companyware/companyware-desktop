@@ -17,6 +17,43 @@ database. Integration requires separately versioned API contracts.
   deliberately at a suitable release state.
 - Build with `mvnw.cmd clean verify` on Windows or `./mvnw clean verify` elsewhere.
 
+## Source checkout, build and start
+
+1. Clone the official source repository and enter its root directory:
+
+   ```powershell
+   git clone https://github.com/Companyware/companyware-desktop.git
+   Set-Location companyware-desktop
+   ```
+
+2. Select a 64-bit JDK 8 through `JAVA_HOME` and verify `java -version` and
+   `javac -version`. A JRE alone can run a release but cannot build the source.
+3. Build and run the complete test suite:
+
+   ```powershell
+   .\mvnw.cmd clean verify
+   ```
+
+4. Start the resulting development build:
+
+   ```powershell
+   java -jar target\Companyware.jar
+   ```
+
+   The default embedded database is created below `data/companyware` relative to
+   the working directory. Use a separate test directory or the documented
+   `companyware.persistence.embedded.path` property; never point a development
+   run at production data.
+
+5. For plugin development, first install the matching SDK classifier locally
+   with `.\mvnw.cmd clean install`, then follow
+   [`standalone-plugin-starter.md`](standalone-plugin-starter.md). The generated
+   project builds a `.cwp` package; it is not a second copy of the Desktop app.
+
+The repository is the developer deliverable. End users should instead download
+the versioned Windows ZIP from GitHub Releases and use `start-companyware.cmd` as
+described in the user guide.
+
 The supported public-framework boundary, compatibility promise, MIT header policy
 and publication gates are defined in [`framework-release.md`](framework-release.md).
 Run `tools/verify-framework-release.ps1` before preparing a framework release.

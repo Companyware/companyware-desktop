@@ -11,6 +11,7 @@ kennen muss.
 
 ## Erste Schritte für Benutzer
 
+- [Windows-ZIP installieren und starten](benutzerhandbuch.md#1-installieren-und-starten)
 - [Benutzerhandbuch](benutzerhandbuch.md): Start, Anmeldung und Bedienung
 - [Erstkennwort ändern](benutzerhandbuch.md#erstkennwort-ändern)
 - [Eigenes Profil und Passwort](benutzerhandbuch.md#eigenes-profil)
@@ -38,6 +39,7 @@ kennen muss.
 
 ## Entwicklung und Erweiterungen
 
+- [Source klonen, bauen und starten](developer-guide.md#source-checkout-build-and-start)
 - [Technische Bestandsaufnahme der Java-Desktopanwendung](current-state-java.md): belegter Ist-Stand, Funktionen, Datenhaltung, Plugin-System und API-Betroffenheit
 - [Entwicklerhandbuch](developer-guide.md): Entwicklungsumgebung, Architektur und Tests
 - [Plugin SDK v1](plugin-sdk-v1.md): öffentliche Pluginverträge und Descriptor
