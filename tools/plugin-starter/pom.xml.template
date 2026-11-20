@@ -1,0 +1,92 @@
+<!--
+  Companyware
+  Copyright (c) 2026 Companyware contributors
+  SPDX-License-Identifier: MIT
+  Licensed under the MIT License; see LICENSE in the Companyware Desktop source.
+  This file is part of the Companyware plugin starter.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>companyware.plugin</groupId>
+  <artifactId>__PLUGIN_ID__</artifactId>
+  <version>__PLUGIN_VERSION__</version>
+  <packaging>jar</packaging>
+  <name>__DISPLAY_NAME_XML__</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <companyware.sdk.version>__SDK_VERSION__</companyware.sdk.version>
+    <project.build.outputTimestamp>2026-11-17T00:00:00Z</project.build.outputTimestamp>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>Companyware</groupId>
+      <artifactId>Companyware</artifactId>
+      <version>${companyware.sdk.version}</version>
+      <classifier>sdk</classifier>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>plugin</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions><execution><goals><goal>enforce</goal></goals><configuration><rules>
+          <requireJavaVersion><version>[1.8,1.9)</version></requireJavaVersion>
+          <requireMavenVersion><version>[3.9.0,)</version></requireMavenVersion>
+        </rules></configuration></execution></executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration><outputTimestamp>${project.build.outputTimestamp}</outputTimestamp></configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.7.1</version>
+        <configuration>
+          <descriptors><descriptor>src/assembly/plugin.xml</descriptor></descriptors>
+          <finalName>${project.artifactId}-${project.version}</finalName>
+          <appendAssemblyId>false</appendAssemblyId>
+          <outputTimestamp>${project.build.outputTimestamp}</outputTimestamp>
+        </configuration>
+        <executions><execution><id>plugin-package</id><phase>package</phase><goals><goal>single</goal></goals></execution></executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions><execution><id>cwp-extension</id><phase>package</phase><configuration><target>
+          <move file="${project.build.directory}/${project.artifactId}-${project.version}.zip"
+                tofile="${project.build.directory}/${project.artifactId}-${project.version}.cwp" />
+        </target></configuration><goals><goal>run</goal></goals></execution></executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,14 @@
+id: companyware.core.menu
+name: Menu
+author: mbdus - Softwareentwicklung
+version: '1.0.0'
+requiredApiVersion: '1.0.0'
+entryPoint: plugins.core.menu.Menu
+priority: 3
+capabilities:
+  - platform.menu
+dependencies:
+  - id: companyware.core.frame
+    minimumVersion: '1.0.0'
+  - id: companyware.core.info
+    minimumVersion: '1.0.0'

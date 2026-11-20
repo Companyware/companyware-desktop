@@ -1,0 +1,12 @@
+id: companyware.community.helloworld
+name: HelloWorld
+author: Companyware
+version: '1.0.0'
+requiredApiVersion: '1.0.0'
+entryPoint: plugins.community.helloworld.Helloworld
+priority: 120
+capabilities:
+  - companyware.hello-world
+dependencies:
+  - id: companyware.core.frame
+    minimumVersion: '1.0.0'

@@ -1,0 +1,21 @@
+/*
+ * Companyware
+ * Copyright (c) 2026 Companyware contributors
+ *
+ * SPDX-License-Identifier: MIT
+ * Licensed under the MIT License; see LICENSE in the Companyware Desktop source.
+ * This file is part of the Companyware plugin starter.
+ */
+package __JAVA_PACKAGE__;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+import platform.api.plugin.Plugin;
+
+public final class __ENTRY_CLASS__Test {
+    @Test public void entryPointUsesOnlyThePublicPluginContract() {
+        assertTrue(Plugin.class.isAssignableFrom(__ENTRY_CLASS__.class));
+        assertEquals("starter.view", __ENTRY_CLASS__.VIEW_ID);
+    }
+}

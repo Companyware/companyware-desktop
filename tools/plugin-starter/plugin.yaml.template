@@ -1,0 +1,18 @@
+# Companyware plugin descriptor
+# Copyright (c) 2026 Companyware contributors
+# SPDX-License-Identifier: MIT
+# Licensed under the MIT License; see LICENSE in the Companyware Desktop source.
+# Generated from the Companyware plugin starter.
+# Review author and identity before distribution.
+id: __PLUGIN_ID__
+name: '__DISPLAY_NAME_YAML__'
+author: '__AUTHOR_YAML__'
+version: '__PLUGIN_VERSION__'
+requiredApiVersion: '__SDK_API_VERSION__'
+entryPoint: __JAVA_PACKAGE__.__ENTRY_CLASS__
+priority: 120
+capabilities:
+  - __PLUGIN_ID__.view
+dependencies:
+  - id: companyware.core.frame
+    minimumVersion: '1.0.0'

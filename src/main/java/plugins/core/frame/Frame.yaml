@@ -1,0 +1,9 @@
+id: companyware.core.frame
+name: Frame
+author: mbdus - Softwareentwicklung
+version: '1.0.0'
+requiredApiVersion: '1.0.0'
+entryPoint: plugins.core.frame.Frame
+priority: 1
+capabilities:
+  - platform.desktop-shell

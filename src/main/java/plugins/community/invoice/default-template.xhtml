@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rechnung {{invoice.number}}</title>
+  <style>
+    @page { size: A4; margin: 18mm 19mm 30mm 24mm; }
+    body { color: #111111; font-family: Arial, sans-serif; font-size: 10.5pt; line-height: 1.22; }
+    .letterhead { height: 55mm; text-align: right; }
+    .letterhead .logo { display: inline-block; width: 72mm; }
+    .document-data { display: table; width: 100%; margin-bottom: 17mm; }
+    .recipient, .contact { display: table-cell; vertical-align: top; }
+    .recipient { width: 61%; padding-top: 5mm; }
+    .contact { width: 39%; color: #555555; }
+    .sender-line { color: #666666; font-size: 8.5pt; margin-bottom: 2mm; }
+    .recipient-address { color: #111111; font-size: 11pt; }
+    .contact-title { color: #111111; font-weight: bold; margin-bottom: 2mm; }
+    .facts { display: table; width: 100%; margin-top: 3mm; color: #111111; }
+    .fact-label, .fact-value { display: table-cell; }
+    .fact-label { width: 54%; }
+    .fact-value { width: 46%; }
+    h1 { font-size: 17pt; margin: 0 0 12mm 0; }
+    .intro { margin: 0 0 7mm 0; }
+    table.lines { border-collapse: collapse; width: 100%; margin-top: 8mm; }
+    .lines th { background: #d5d5d5; padding: 1.5mm 1mm; text-align: left; font-weight: normal; }
+    .lines td { border-bottom: 0.25mm solid #d5d5d5; padding: 2mm 1mm; vertical-align: top; }
+    .number { text-align: right; white-space: nowrap; }
+    .totals { border-collapse: collapse; width: 100%; margin-top: 1mm; }
+    .totals td { padding: 1.5mm 1mm; }
+    .totals .label { text-align: left; }
+    .total td { background: #d5d5d5; font-weight: bold; }
+    .payment { margin-top: 4mm; }
+    .closing { margin-top: 9mm; }
+    .tax { margin-top: 5mm; font-size: 8.5pt; color: #666666; }
+    .footer { position: fixed; left: 0; right: 0; bottom: 0; border-top: 0.25mm solid #d5d5d5;
+              padding-top: 2mm; color: #666666; font-size: 8.5pt; }
+    .footer-left, .footer-right { display: inline-block; width: 49%; vertical-align: top; }
+  </style>
+</head>
+<body>
+  <div class="letterhead"><div class="logo">{{company.logo}}</div></div>
+  <div class="document-data">
+    <div class="recipient">
+      <div class="sender-line">{{seller.name}} · {{seller.address}}</div>
+      <div class="recipient-address">{{customer.name}}<br />{{customer.address}}</div>
+    </div>
+    <div class="contact">
+      <div class="contact-title">Kontakt:</div>
+      {{seller.name}}<br />{{seller.address}}
+      <div class="facts"><div class="fact-label">Datum:</div><div class="fact-value">{{invoice.issueDate}}</div></div>
+      <div class="facts"><div class="fact-label">Rechnungs-Nr.:</div><div class="fact-value">{{invoice.number}}</div></div>
+    </div>
+  </div>
+  <h1>Rechnung</h1>
+  <p class="intro">Sehr geehrte Damen und Herren,</p>
+  <p class="intro">ich erlaube mir, wie folgt in Rechnung zu stellen:</p>
+  <table class="lines">
+    <thead><tr><th>Tätigkeit</th><th class="number">Menge</th><th class="number">Einzel netto</th><th class="number">MwSt.</th><th class="number">Betrag</th></tr></thead>
+    <tbody>{{lines}}</tbody>
+  </table>
+  <table class="totals">
+    <tr><td class="label">Summe</td><td class="number">{{invoice.net}} {{invoice.currency}}</td></tr>
+    <tr><td class="label">Mehrwertsteuer</td><td class="number">{{invoice.tax}} {{invoice.currency}}</td></tr>
+    <tr class="total"><td class="label">Gesamtbetrag</td><td class="number">{{invoice.gross}} {{invoice.currency}}</td></tr>
+  </table>
+  <div class="payment">{{invoice.paymentTerms}}</div>
+  <div class="closing">Bei eventuellen Rückfragen wenden Sie sich bitte vertrauensvoll an mich.</div>
+  <div class="tax">Steuernummer / USt-IdNr.: {{seller.taxId}}</div>
+  <div class="footer"><div class="footer-left">{{seller.name}}<br />{{seller.address}}</div><div class="footer-right">{{company.footer}}</div></div>
+</body>
+</html>

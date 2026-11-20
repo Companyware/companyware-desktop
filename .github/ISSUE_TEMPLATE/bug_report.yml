@@ -1,0 +1,48 @@
+name: Bug report
+description: Report a reproducible Companyware Desktop defect without confidential data
+title: "[Bug] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: Do not report vulnerabilities or include credentials, databases, invoices or customer documents here. Use the private process in SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: Commit or release
+      description: Exact Git commit or immutable release version.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, Java version, Derby profile and relevant plugin versions.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Use disposable data and list the smallest reproducible sequence.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Data check
+      options:
+        - label: I removed secrets, personal data, production databases and confidential documents.
+          required: true

@@ -1,0 +1,10 @@
+# Companyware generated-project ignore rules
+# Copyright (c) 2026 Companyware contributors
+# SPDX-License-Identifier: MIT
+# Licensed under the MIT License; see LICENSE in the Companyware Desktop source.
+# Generated from the Companyware plugin starter.
+# Review before extending.
+/target/
+/.settings/
+/.classpath
+/.project

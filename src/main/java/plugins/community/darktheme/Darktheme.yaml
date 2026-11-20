@@ -1,0 +1,9 @@
+id: companyware.theme.dark
+name: Companyware Dark Theme
+author: Companyware
+version: '1.0.0'
+requiredApiVersion: '1.0.0'
+entryPoint: plugins.community.darktheme.Darktheme
+priority: 4
+capabilities:
+  - platform.theme.dark

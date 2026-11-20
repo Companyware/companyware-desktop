@@ -1,0 +1,12 @@
+id: companyware.core.info
+name: Info
+author: mbdus - Softwareentwicklung
+version: '1.0.0'
+requiredApiVersion: '1.0.0'
+entryPoint: plugins.core.info.Info
+priority: 4
+capabilities:
+  - platform.info
+dependencies:
+  - id: companyware.core.frame
+    minimumVersion: '1.0.0'

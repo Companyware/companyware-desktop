@@ -1,0 +1,18 @@
+<!--
+  Companyware
+  Copyright (c) 2026 Companyware contributors
+  SPDX-License-Identifier: MIT
+  Licensed under the MIT License; see LICENSE in the project root.
+  This file is part of the Companyware plugin starter.
+-->
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 https://maven.apache.org/xsd/assembly-2.2.0.xsd">
+  <id>plugin</id>
+  <formats><format>zip</format></formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <files>
+    <file><source>plugin.yaml</source><outputDirectory>/</outputDirectory><destName>plugin.yaml</destName></file>
+    <file><source>${project.build.directory}/plugin.jar</source><outputDirectory>/</outputDirectory><destName>plugin.jar</destName></file>
+  </files>
+</assembly>

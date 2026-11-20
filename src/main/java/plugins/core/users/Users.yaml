@@ -1,0 +1,14 @@
+id: companyware.core.users
+name: Users
+author: mbdus - Softwareentwicklung
+version: '1.0.0'
+requiredApiVersion: '1.0.0'
+entryPoint: plugins.core.users.Users
+priority: 6
+capabilities:
+  - platform.user-management
+dependencies:
+  - id: companyware.core.frame
+    minimumVersion: '1.0.0'
+  - id: companyware.core.menu
+    minimumVersion: '1.0.0'

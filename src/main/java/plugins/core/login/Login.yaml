@@ -1,0 +1,12 @@
+id: companyware.core.login
+name: Login
+author: mbdus - Softwareentwicklung
+version: '1.0.0'
+requiredApiVersion: '1.0.0'
+entryPoint: plugins.core.login.Login
+priority: 2
+capabilities:
+  - platform.login-prompt
+dependencies:
+  - id: companyware.core.frame
+    minimumVersion: '1.0.0'

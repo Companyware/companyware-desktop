@@ -1,0 +1,12 @@
+/target/
+/Companyware_with_Sources.zip
+/companyware/
+/derby.log
+/data/
+Companyware_with_Sources.zip
+derby.log
+/src/main/java/install.lck
+/src/main/java/installsql.lck
+/hs_err_pid*.log
+/lib/._*.tmp
+/org.apache.commons.logging.LogAdapter*

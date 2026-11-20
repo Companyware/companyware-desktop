@@ -1,0 +1,39 @@
+# __DISPLAY_NAME_MARKDOWN__
+
+Status: **Generated development project — not reviewed for installation**
+
+This Java 8 Maven project compiles only against the version-bound Companyware
+Desktop SDK artifact `Companyware:Companyware:__SDK_VERSION__:sdk`. It does not
+contain Companyware Core, an installer or automatic activation.
+
+## Prerequisites
+
+1. Install a JDK 8 and select it through `JAVA_HOME`.
+2. From the matching Companyware Desktop `__SDK_VERSION__` source, run
+   `mvnw.cmd clean install` once to put the exact SDK classifier in the local
+   Maven repository. A future public SDK repository may replace this local step.
+
+## Build and test
+
+On Windows run:
+
+```powershell
+.\mvnw.cmd clean verify
+```
+
+The result is `target/__PLUGIN_ID__-__PLUGIN_VERSION__.cwp`. The archive must
+contain exactly `plugin.yaml` and `plugin.jar`. Repeating the build from unchanged
+source produces the same bytes because JAR and assembly timestamps are fixed.
+
+Build success does not make plugin code safe. Inspect the package separately,
+review source and permissions, and require independent approvals for Trusted-Local
+installation and activation. Never put credentials, databases or private
+documents in this project.
+
+## Troubleshooting
+
+- `javac` missing: `JAVA_HOME` points to a JRE instead of a JDK 8.
+- SDK artifact missing: install the matching Desktop source version as described
+  above; do not silently change `companyware.sdk.version`.
+- Package rejected: compare `plugin.yaml` with the Plugin SDK v1 descriptor and
+  keep only the two required root entries.
