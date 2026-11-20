@@ -133,6 +133,13 @@ characters. Roles and permissions belong to the authenticated identity. Plugins
 declare namespace-safe privileges with `context.permission("orders.edit")` and use
 them in UI access requirements instead of importing login or user implementations.
 
+On a fresh Desktop database, the built-in administrator uses username
+`companyware` and initial password `companyware`. These are first-login credentials,
+not a permanent shared account: the login flow requires an immediate replacement
+with a password of at least ten characters, and the known initial password cannot
+be assigned again. Existing installations continue to use their already changed
+credentials. Companyware Web does not use this Desktop account.
+
 Secrets do not belong in source, `application.properties` or plugin descriptors.
 The default provider reads `CW_SECRET_<NAME>` environment variables, with
 `-Dcompanyware.secret.<name>=...` available for local JVM configuration. Login,
