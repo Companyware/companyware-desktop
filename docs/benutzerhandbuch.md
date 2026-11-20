@@ -6,7 +6,25 @@ nicht Bestandteil dieses Programms.
 Einzelne Fachfunktionen werden durch Plugins bereitgestellt und können je nach
 Installation abweichen.
 
-## 1. Programm starten
+## 1. Installieren und starten
+
+Companyware Desktop wird als versionierte Windows-ZIP über die GitHub-Releases
+des Projekts bereitgestellt. Laden Sie nur ein freigegebenes Release-Asset aus
+dem offiziellen Repository und vergleichen Sie dessen SHA-256-Prüfsumme mit der
+mitgelieferten Prüfsummendatei.
+
+1. Installieren Sie eine 64-Bit-Java-8-Laufzeit oder eine neuere kompatible
+   Java-Laufzeit.
+2. Entpacken Sie die ZIP vollständig in ein beschreibbares Verzeichnis. Starten
+   Sie das Programm nicht direkt aus der ZIP.
+3. Öffnen Sie den entpackten Ordner und starten Sie `start-companyware.cmd`.
+4. Bestätigen Sie keine Sicherheitswarnung für eine Datei aus einer anderen
+   Quelle. Companyware 0.29.0-rc.2 besitzt noch keinen nativen Windows-Installer
+   und keine EXE.
+
+Die ZIP enthält die ausführbare `Companyware.jar`, das Startskript, Dokumentation
+und die Prüfsumme der JAR. Entwickler müssen den Quellcode für die normale Nutzung
+nicht herunterladen oder kompilieren.
 
 Companyware kann privat mit einer eingebetteten Datenbank oder in einer kleinen
 Firma mit einem zentralen Derby-Datenbankserver betrieben werden. Die Betriebsart
@@ -14,6 +32,12 @@ wird durch die Installation vorgegeben und muss im Alltag nicht ausgewählt werd
 
 Nach dem Start erscheint zunächst die Ladeanzeige. Wenn alle Kernmodule vorbereitet
 sind, öffnet sich die Anwendung mit dem Anmeldefenster.
+
+Falls das Startskript meldet, dass Java nicht gefunden wurde, prüfen Sie in einer
+Eingabeaufforderung `java -version` und installieren beziehungsweise konfigurieren
+Sie die Java-Laufzeit. Verschieben Sie nach der ersten Nutzung nicht nur einzelne
+Dateien aus dem entpackten Ordner; Anwendung, Dokumentation und lokale Daten müssen
+als zusammengehörige Installation behandelt und vor Updates gesichert werden.
 
 ## 2. Anmelden
 
