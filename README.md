@@ -71,6 +71,9 @@ The executable Spring Boot JAR is created as `target/Companyware.jar`. The optio
 For a verified distributable archive, set `JAVA_HOME` to a JDK and run
 `.\tools\verify-framework-release.ps1`. The complete clean-clone release gate and rollback
 procedure are documented in [docs/release-process.md](docs/release-process.md).
+Maintainers following the process for the first time should use the step-by-step
+[release how-to](docs/release-howto.md), which covers a fresh clone through the
+final GitHub download verification.
 
 ## Eclipse import
 
