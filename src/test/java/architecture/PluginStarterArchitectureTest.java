@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import org.junit.Test;
+import org.junit.Assume;
 import pluginmanager.packaging.PluginPackageInspection;
 import pluginmanager.packaging.PluginPackageInspector;
 
@@ -87,5 +88,16 @@ public final class PluginStarterArchitectureTest {
         } finally {
             Files.deleteIfExists(packageFile);
         }
+    }
+
+    @Test public void releaseGateInspectsTheActuallyBuiltStarterPackage() throws Exception {
+        String configured = System.getProperty("companyware.starter.package");
+        Assume.assumeTrue("No built starter package was supplied", configured != null && !configured.trim().isEmpty());
+        Path packageFile = Paths.get(configured).toAbsolutePath().normalize();
+        PluginPackageInspection inspection = new PluginPackageInspector().inspect(packageFile);
+        assertTrue("example.releasegate".equals(inspection.getDescriptor().getId().value()));
+        assertTrue(inspection.getEntries().size() == 2);
+        assertTrue(inspection.getEntries().contains("plugin.yaml"));
+        assertTrue(inspection.getEntries().contains("plugin.jar"));
     }
 }
