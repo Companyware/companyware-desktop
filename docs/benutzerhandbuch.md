@@ -17,6 +17,11 @@ sind, öffnet sich die Anwendung mit dem Anmeldefenster.
 
 ## 2. Anmelden
 
+Bei einer neuen Desktop-Installation mit frischer Datenbank lautet der
+Benutzername des vorinstallierten Administrators `companyware`; das Erstkennwort
+lautet ebenfalls `companyware`. Diese Angaben gelten nur für die erste Anmeldung.
+Eine bestehende Installation verwendet das bereits geänderte Kennwort.
+
 1. Oben im Anmeldefenster die gewünschte Sprache auswählen.
    Das bereits sichtbare Hauptfenster mit Menü und Navigation wechselt sofort mit.
 2. Benutzername eingeben.
@@ -46,6 +51,10 @@ Das neue Passwort muss sich vom bisherigen unterscheiden; das gilt auch dann, we
 das bisherige Passwort bereits mindestens zehn Zeichen lang ist. Erst nach erfolgreicher
 Änderung wird die Anmeldung abgeschlossen. Das Erstkennwort sollte nicht weiter
 verwendet oder notiert werden.
+
+Companyware Web ist eine separate Anwendung und übernimmt diese Desktop-
+Zugangsdaten nicht. Web-Administratoren werden dort ausdrücklich mit einem selbst
+gewählten Passwort angelegt.
 
 ## 3. Hauptfenster
 
