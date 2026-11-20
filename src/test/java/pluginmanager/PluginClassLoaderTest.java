@@ -10,6 +10,12 @@ import java.util.zip.ZipOutputStream;
 import org.junit.Test;
 
 public class PluginClassLoaderTest {
+    @Test public void delegatesBuiltInPluginsToApplicationClassLoader() throws Exception {
+        try (PluginClassLoader loader = new PluginClassLoader()) {
+            assertNotNull(loader.loadClass("plugins.core.frame.Frame"));
+        }
+    }
+
     @Test public void closeReleasesLoadedJar() throws Exception {
         Path plugin = Files.createTempDirectory("companyware-plugin-loader-");
         Path library = Files.createDirectories(plugin.resolve("lib")).resolve("sample.jar");

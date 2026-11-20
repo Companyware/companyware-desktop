@@ -13,10 +13,6 @@
  *******************************************************************************/
 package core;
 
-import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import persistence.PersistenceSettings;
@@ -31,26 +27,13 @@ public class HibernateUtils {
         try {
 			Configuration config = new Configuration().configure("hibernate.cfg.xml");
 			PersistenceSettings.load().applyTo(config);
- 	        
- 	        URL url = HibernateUtils.class.getResource("/");
- 	        URI uri = null;
- 			try {
- 				if(url!=null){
- 					uri = url.toURI();
- 				}
- 			} catch (URISyntaxException e) {
- 				// TODO Auto-generated catch block
- 				e.printStackTrace();
- 			}
- 	     
-			File file;
-			if (uri != null && uri.getScheme().equals("jar")) {
-				file = new File("classes");
-			}
-			else{
-				file = new File("src/main/java");
-			}
- 			config.addDirectory(file);
+			// Explicit classpath mappings work identically from Eclipse, Maven test
+			// classes and the nested Spring Boot executable JAR. Filesystem scanning
+			// cannot see BOOT-INF/classes inside the packaged application.
+			config.addResource("models/plugin/PluginModel.hbm.xml");
+			config.addResource("models/pluginsettings/PluginSettingsModel.hbm.xml");
+			config.addResource("models/settings/SettingsModel.hbm.xml");
+			config.addResource("models/user/UserModel.hbm.xml");
 
 			// Schema presence is database state, never notebook-local lock-file state.
 			// Versioned data changes are coordinated by MigrationRunner.

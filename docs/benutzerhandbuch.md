@@ -17,14 +17,17 @@ mitgelieferten Prüfsummendatei.
    Java-Laufzeit.
 2. Entpacken Sie die ZIP vollständig in ein beschreibbares Verzeichnis. Starten
    Sie das Programm nicht direkt aus der ZIP.
-3. Öffnen Sie den entpackten Ordner und starten Sie `start-companyware.cmd`.
+3. Öffnen Sie den entpackten Ordner und starten Sie `Companyware.exe`. Falls der
+   EXE-Start nicht möglich ist, verwenden Sie `start-companyware.cmd`.
 4. Bestätigen Sie keine Sicherheitswarnung für eine Datei aus einer anderen
-   Quelle. Companyware 0.29.0-rc.2 besitzt noch keinen nativen Windows-Installer
-   und keine EXE.
+   Quelle. Companyware 0.29.0-rc.2 besitzt noch keinen signierten
+   Windows-Installer und bringt keine eigene Java-Laufzeit mit.
 
-Die ZIP enthält die ausführbare `Companyware.jar`, das Startskript, Dokumentation
-und die Prüfsumme der JAR. Entwickler müssen den Quellcode für die normale Nutzung
-nicht herunterladen oder kompilieren.
+Die ZIP enthält den Launch4j-Starter, die ausführbare `Companyware.jar`, das
+Startskript, Dokumentation und Prüfsummen. EXE und Startskript starten dieselbe
+JAR und benötigen Java 8 oder neuer. Entwickler müssen den Quellcode für die
+normale Nutzung nicht herunterladen oder kompilieren. `Companyware.exe` und
+`Companyware.jar` müssen im selben Ordner bleiben.
 
 Companyware kann privat mit einer eingebetteten Datenbank oder in einer kleinen
 Firma mit einem zentralen Derby-Datenbankserver betrieben werden. Die Betriebsart

@@ -7,6 +7,7 @@ package architecture;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -35,6 +36,17 @@ public class RuntimeBaselineTest {
         assertFalse(xml.contains("kind=\"lib\""));
         assertFalse(xml.contains("path=\"lib\""));
         assertFalse(xml.contains("excluding=\"main/java/|test/java/|main/resources/\""));
+    }
+
+    @Test
+    public void hibernateMappingsAreClasspathBasedForExecutableJar() throws Exception {
+        String source = new String(Files.readAllBytes(
+                new File("src/main/java/core/HibernateUtils.java").toPath()), StandardCharsets.UTF_8);
+        assertTrue(source.contains("models/plugin/PluginModel.hbm.xml"));
+        assertTrue(source.contains("models/pluginsettings/PluginSettingsModel.hbm.xml"));
+        assertTrue(source.contains("models/settings/SettingsModel.hbm.xml"));
+        assertTrue(source.contains("models/user/UserModel.hbm.xml"));
+        assertFalse(source.contains("config.addDirectory"));
     }
 
     private static String codeSource(Class<?> type) {

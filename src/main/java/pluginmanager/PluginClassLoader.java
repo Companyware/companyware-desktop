@@ -21,7 +21,9 @@ import java.net.URLClassLoader;
 public class PluginClassLoader extends URLClassLoader {
 
 	public PluginClassLoader() {
-		super(new URL[] {});
+		// Spring Boot application classes live behind its launch classloader and
+		// are not visible from the JVM system classloader inside an executable JAR.
+		super(new URL[] {}, PluginClassLoader.class.getClassLoader());
 	}
 
 	private void addFile(File file) throws MalformedURLException {

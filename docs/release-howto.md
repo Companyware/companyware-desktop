@@ -111,6 +111,11 @@ den Commit. Ein Release wird niemals aus einem schmutzigen Arbeitsbaum gebaut.
 
 ## 5. Vollständige Release-Gates ausführen
 
+Auf Windows kann der vollständige lokale Framework-Build auch per Doppelklick auf
+`build-windows-release.cmd` gestartet werden. Das Fenster bleibt für Ergebnis und
+Fehlerhilfe geöffnet. Der Starter ruft dasselbe Gate auf und erzeugt keinen
+abweichenden zweiten Buildweg.
+
 ```powershell
 .\tools\verify-framework-release.ps1
 .\tools\verify-clean-clone.ps1
@@ -180,9 +185,10 @@ verschoben.
 8. Kontrollieren Sie Tag, Version und Dateinamen, dann veröffentlichen Sie den
    Pre-release.
 
-Keine JAR, ZIP oder EXE wird in den Git-Source eingecheckt. Die JAR steckt im
-Windows-ZIP. Eine EXE wird erst nach einem separaten Installer-, Signatur- und
-Windows-Start/Stop-Gate veröffentlicht.
+Keine JAR, ZIP oder EXE wird in den Git-Source eingecheckt. JAR und die daraus
+mit Launch4j erzeugte EXE stecken im Windows-ZIP. Vor der Veröffentlichung sind
+beide Startwege im separaten Windows-Start/Stop-Gate zu prüfen. Ein signierter
+Installer mit eigener Java-Laufzeit ist nicht Bestandteil dieses Kandidaten.
 
 ## 9. Veröffentlichung von außen nachprüfen
 

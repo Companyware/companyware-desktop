@@ -20,11 +20,10 @@ repository never claims that a Desktop release also releases the Web application
 
 Executable binaries are not committed to the Git source history. Each approved
 GitHub pre-release provides a versioned Windows ZIP as a release asset after its
-release gates pass. The ZIP contains `Companyware.jar`,
-`start-companyware.cmd`, the matching documentation and the JAR checksum. A user
-with a supported Java runtime can unpack the ZIP and start the command file
-without compiling the source. A native EXE may be added only after its separate
-Windows packaging and start/stop gate has passed.
+release gates pass. The ZIP contains `Companyware.jar`, the Launch4j-generated
+`Companyware.exe`, `start-companyware.cmd`, matching documentation and checksums.
+A user with a supported Java runtime can unpack the ZIP and start either the EXE
+or the command file without compiling the source.
 
 Branches and untagged commits remain source-only Development Previews. Download
 executable files only from an explicitly marked GitHub Release or Pre-release,
@@ -32,6 +31,20 @@ never from commits, issues or unofficial mirrors.
 
 Developer setup, plugin authoring, persistence, security and testing are documented
 in [the developer guide](docs/developer-guide.md).
+
+## Create an executable application without Eclipse
+
+1. Set `JAVA_HOME` to a 64-bit JDK 8.
+2. Double-click `build-windows-release.cmd` in the repository root.
+3. After `RELEASE BUILD PASSED`, open
+   `target\release\companyware-desktop-0.29.0-rc.2`.
+4. Start `Companyware.exe`. Alternatively use `start-companyware.cmd` or
+   `java -jar Companyware.jar`.
+
+No Eclipse installation is required to run this result. The release ZIP beside
+the directory contains the same EXE, JAR, start script, documentation and
+checksums for transfer to another Windows computer. The EXE is a Launch4j
+launcher for the same tested JAR and therefore also requires Java 8 or newer.
 
 The German operating instructions are available in the
 [Companyware user guide](docs/benutzerhandbuch.md).
@@ -66,7 +79,9 @@ On Linux or macOS:
 ./mvnw clean verify
 ```
 
-The executable Spring Boot JAR is created as `target/Companyware.jar`. The optional legacy Windows packaging profile is invoked with `-Pwindows-exe`; it is not part of the baseline verification.
+The executable Spring Boot JAR is created as `target/Companyware.jar`. The
+verified Windows release build additionally invokes the `windows-exe` Launch4j
+profile and creates `target/Companyware.exe`.
 
 For a verified distributable archive, set `JAVA_HOME` to a JDK and run
 `.\tools\verify-framework-release.ps1`. The complete clean-clone release gate and rollback
@@ -74,6 +89,12 @@ procedure are documented in [docs/release-process.md](docs/release-process.md).
 Maintainers following the process for the first time should use the step-by-step
 [release how-to](docs/release-howto.md), which covers a fresh clone through the
 final GitHub download verification.
+
+On Windows, `build-windows-release.cmd` provides the same verified build as a
+double-clickable entry point. It does not copy Eclipse output manually: Maven
+packages the complete executable JAR, creates the Launch4j EXE and assembles the
+Windows ZIP, documentation, checksums and evidence below `target\release`. Automated or
+Eclipse External Tool invocations may pass `--no-pause`.
 
 ## Eclipse import
 

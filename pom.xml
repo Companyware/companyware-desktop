@@ -215,71 +215,37 @@
   <profiles>
         <profile>
             <id>windows-exe</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
-                		<!-- this is to extract the JRE tgz file we downloaded -->
-                		<groupId>org.apache.maven.plugins</groupId>
-                		<artifactId>maven-dependency-plugin</artifactId>
-                		<version>2.5.1</version>
-                		<executions>
-                    		<execution>
-                        		<phase>generate-resources</phase>
-                        		<goals>
-                            		<goal>unpack-dependencies</goal>
-                        		</goals>
-                        		<configuration>
-                            		<includeGroupIds>com.oracle.java</includeGroupIds>
-                            		<includeTypes>tgz</includeTypes>
-                            		<includeArtifactIds>jre</includeArtifactIds>
-                            		<includeClassifiers>win32</includeClassifiers>
-                            		<outputDirectory>target/win32</outputDirectory>
-                        		</configuration>
-                    		</execution>
-                		</executions>
-            		</plugin>
-            		<plugin>
-                		<!-- This calls launch4j to create the program EXE -->
-                		<groupId>com.akathist.maven.plugins.launch4j</groupId>
-                		<artifactId>launch4j-maven-plugin</artifactId>
-                		<executions>
-                    		<execution>
-                        		<id>l4j-clui</id>
-                        		<phase>package</phase>
-                        		<goals>
-                            		<goal>launch4j</goal>
-                        		</goals>
-                        		<configuration>
-                            		<headerType>gui</headerType>
-                            		<outfile>target/Companyware.exe</outfile>
-                            		<jar>target/Companyware.jar</jar>
-                            		<errTitle>error</errTitle>
-                            		<classPath>                    
-   										<mainClass>org.springframework.boot.loader.JarLauncher</mainClass>                                
-   										<addDependencies>true</addDependencies>
-   										<preCp>anything</preCp>
-									</classPath>
-                            		<jre>
-                                		<path>./win32/java</path>
-                            		</jre>
-                            		<versionInfo>
-                                		<fileVersion>1.2.3.4</fileVersion>
-                                		<txtFileVersion>txt file version?</txtFileVersion>
-									<fileDescription>Companyware Desktop</fileDescription>
-									<copyright>Copyright (c) 2026 Companyware contributors</copyright>
-                                		<productVersion>4.3.2.1</productVersion>
-									<txtProductVersion>Companyware Desktop development preview</txtProductVersion>
-									<productName>Companyware Desktop</productName>
-									<internalName>CompanywareDesktop</internalName>
-                                		<originalFilename>Companyware.exe</originalFilename>
-                            		</versionInfo>
-                        		</configuration>
-                    		</execution>
-                		</executions>
-            		</plugin>
+                        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                        <artifactId>launch4j-maven-plugin</artifactId>
+                        <version>2.5.3</version>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <dontWrapJar>true</dontWrapJar>
+                            <outfile>target/Companyware.exe</outfile>
+                            <jar>Companyware.jar</jar>
+                            <errTitle>Companyware Desktop</errTitle>
+                            <chdir>.</chdir>
+                            <jre>
+                                <minVersion>1.8.0</minVersion>
+                                <requiresJdk>false</requiresJdk>
+                                <requires64Bit>false</requires64Bit>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>0.29.0.2</fileVersion>
+                                <txtFileVersion>${project.version}</txtFileVersion>
+                                <fileDescription>Companyware Desktop</fileDescription>
+                                <copyright>Copyright (c) 2026 Companyware contributors</copyright>
+                                <productVersion>0.29.0.2</productVersion>
+                                <txtProductVersion>${project.version}</txtProductVersion>
+                                <productName>Companyware Desktop</productName>
+                                <internalName>CompanywareDesktop</internalName>
+                                <originalFilename>Companyware.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
