@@ -27,6 +27,10 @@ kennen muss.
 
 ## Installation und Betrieb
 
+- [Vom ersten Download zum eigenen Release](release-howto.md): lückenloser
+  Windows-Ablauf für Maintainer mit erwarteten Ergebnissen und Fehlerhilfe
+- [Release mit Codex begleiten](codex-release-howto.md): derselbe Zwölf-Punkte-
+  Prozess mit fertigen Codex-Aufträgen und einem zwingenden Freigabepunkt
 - [Privater Embedded-Betrieb](benutzerhandbuch.md#privater-betrieb)
 - [Firmenbetrieb mit Derby Network Server](benutzerhandbuch.md#firmenbetrieb)
 - [Datensicherung und Wiederherstellung](derby-backup.md)
