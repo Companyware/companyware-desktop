@@ -128,9 +128,9 @@ Codex muss nun stoppen und eine kompakte Freigabevorlage liefern:
 - Version und Tag;
 - bestandene Gates;
 - offene oder nicht prüfbare Punkte;
-- JAR- und ZIP-SHA-256;
+- JAR-, EXE- und ZIP-SHA-256;
 - geplante Release-Assets;
-- Hinweis, dass keine EXE veröffentlicht wird, solange ihr separates Gate fehlt.
+- Ergebnis des getrennten Start/Stop-Gates für JAR und Launch4j-EXE.
 
 Erst danach geben Sie ausdrücklich ein:
 

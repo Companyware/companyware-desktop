@@ -46,8 +46,8 @@ release. Gitolite `develop` remains authoritative until explicit approval.
 4. Create an annotated tag `v0.29.0-rc.2` on the same commit.
 5. Mark the GitHub release as a **pre-release** and upload only the verified
    Windows ZIP, checksum and evidence files. The ZIP is the quick-start download
-   and must contain the exact verified `Companyware.jar`, `start-companyware.cmd`,
-   matching documentation and JAR checksum. Do not commit JAR, ZIP or EXE binaries
+   and must contain the exact verified `Companyware.jar`, `Companyware.exe`,
+   `start-companyware.cmd`, matching documentation and JAR/EXE checksums. Do not commit JAR, ZIP or EXE binaries
    to the Git source history. Publish a native EXE only after its separate Windows
    packaging and start/stop gate passes.
 6. Re-read the public README and download links, then record the GitHub commit,

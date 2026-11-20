@@ -12,6 +12,10 @@ import org.hibernate.Version;
 import org.springframework.boot.SpringBootVersion;
 
 import core.HibernateUtils;
+import models.plugin.PluginModel;
+import models.pluginsettings.PluginSettingsModel;
+import models.settings.SettingsModel;
+import models.user.UserModel;
 import pluginmanager.PluginDescriptorReader;
 
 /** Standalone smoke probe that can be run with the same Java 8 runtime as Eclipse. */
@@ -34,6 +38,10 @@ public final class DesktopStartupSmoke {
 
         try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             if (!session.isOpen()) throw new IllegalStateException("Hibernate session did not open");
+            HibernateUtils.getSessionFactory().getMetamodel().entity(PluginModel.class);
+            HibernateUtils.getSessionFactory().getMetamodel().entity(PluginSettingsModel.class);
+            HibernateUtils.getSessionFactory().getMetamodel().entity(SettingsModel.class);
+            HibernateUtils.getSessionFactory().getMetamodel().entity(UserModel.class);
         } finally {
             HibernateUtils.shutdown();
         }

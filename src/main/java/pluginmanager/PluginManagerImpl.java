@@ -87,6 +87,11 @@ import persistence.DefaultPluginDatabase;
 import platform.api.persistence.PersistenceServiceIds;
 
 public class PluginManagerImpl implements PluginManager {
+	private static final String[] BUILT_IN_PLUGINS = {
+			"core/frame", "core/info", "core/login", "core/menu", "core/plugins", "core/users",
+			"community/companywaredemo", "community/darktheme", "community/helloworld",
+			"community/invoice", "community/mbduscustomer"
+	};
 
 	private String pluginsDir;
 	private PluginClassLoader classLoader;
@@ -123,70 +128,27 @@ public class PluginManagerImpl implements PluginManager {
 
 	@Override
 	public void init() {
-		URL url = getClass().getResource("/");
-
-        URI uri = null;
-		
-		try {
-			if(url!=null){
-				uri = url.toURI();
-			}
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        Path path;
-		if (uri != null && uri.getScheme().equals("jar")) {
-			this.isJar = true;
-        	this.pluginsDir = "classes/plugins";
-			try (FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap())) {
-				path = fileSystem.getPath("/BOOT-INF/classes/plugins/");
-				try (Stream<Path> walk = Files.walk(path, 1)) {
-					for (Iterator<Path> it = walk.iterator(); it.hasNext();) {
-						String filename = it.next().toString();
-						if (filename.contains("/core/") || filename.contains("community")) {
-							final boolean core = filename.contains("/core/");
-							Path pathPlugins = fileSystem.getPath(filename);
-							try (Stream<Path> pluginPaths = Files.walk(pathPlugins, 1)) {
-								pluginPaths.forEach(pathP -> {
-									File file = new File(pathP.toString());
-									if (!file.getName().startsWith(".") && !file.getName().endsWith("core")
-											&& !file.getName().endsWith("community")) initPlugin(file, core);
-								});
-							}
-						}
-					}
-				}
-			} catch (IOException failure) {
-				throw new IllegalStateException("Unable to scan packaged plugins", failure);
-			}
-        }
-        else{
-        	File dh = new File(this.pluginsDir);
-        
-            if(dh != null){ 
-			String[] directoryNames = dh.list();
-			List<String> listFiles = directoryNames == null
-					? Collections.<String>emptyList() : Arrays.asList(directoryNames);
-    		
-    			Collections.sort(listFiles,Collections.reverseOrder());
-    			for (String pluginDir : listFiles){
-    				if(pluginDir.equals("community") || pluginDir.equals("core")){
-    					boolean core = pluginDir.equals("core")?true:false;
-    					File pluginDirectory = new File(this.pluginsDir + System.getProperty("file.separator") + pluginDir); 
-    					for (File plugin : pluginDirectory.listFiles()){
-    						if(!plugin.getName().startsWith(".")){
-    							initPlugin(plugin, core);
-    						}
-    					}
-    				}
-    			}
-            }
-        }
+		this.isJar = PluginManagerImpl.class.getResource("/BOOT-INF/classes/") != null
+				|| PluginManagerImpl.class.getResource("/plugins/core/frame/Frame.yaml") != null;
+		for (String builtIn : BUILT_IN_PLUGINS) initBuiltInPlugin(builtIn);
 		discoverInstalledPackages();
 		core.Companyware.getContainer().checkFirstRun();
 		core.Companyware.getContainer().checkUpdate();
 		loadPlugins();
+	}
+
+	private void initBuiltInPlugin(String builtIn) {
+		String[] parts = builtIn.split("/");
+		if (parts.length != 2) throw new IllegalArgumentException("Invalid built-in plugin path: " + builtIn);
+		String folder = parts[1];
+		String namespace = folder.substring(0, 1).toUpperCase() + folder.substring(1);
+		String resource = "plugins/" + builtIn + "/" + namespace + ".yaml";
+		try (InputStream input = PluginManagerImpl.class.getClassLoader().getResourceAsStream(resource)) {
+			if (input == null) throw new IOException("Built-in plugin descriptor is missing: " + resource);
+			initPlugin(folder, "core".equals(parts[0]), PluginDescriptorReader.read(input, resource));
+		} catch (Exception failure) {
+			throw new IllegalStateException("Unable to initialize built-in plugin " + builtIn, failure);
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -244,6 +206,31 @@ public class PluginManagerImpl implements PluginManager {
 		} catch (Exception ex) {
 			log.error("Exception in PluginManagerImp loadPlugins",ex);
 		}
+	}
+
+	private void initPlugin(String folder, boolean core, PluginDescriptor descriptor) throws Exception {
+		String subdirectory = core ? "core" : "community";
+		String pluginNamespace = folder.substring(0, 1).toUpperCase() + folder.substring(1);
+		String pluginpath = "plugins." + subdirectory + "." + folder + "." + pluginNamespace;
+		String name = descriptor.getName();
+		PluginModel pluginModel;
+		try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+			Query query = session.createQuery("from PluginModel where name=:name");
+			query.setParameter("name", name);
+			pluginModel = (PluginModel) query.uniqueResult();
+		}
+		if (pluginModel == null) {
+			pluginModel = new PluginModel();
+			pluginModel.setName(name);
+			pluginModel.setActive(core);
+		}
+		pluginModel.setVersion(descriptor.getVersion().toString());
+		pluginModel.setAuthor(descriptor.getAuthor());
+		pluginModel.setNamespace(subdirectory);
+		pluginModel.setPath(pluginpath);
+		pluginModel.setPrio(descriptor.getPriority());
+		Repository.save(pluginModel);
+		readAndSaveXmlSettings(name, pluginModel.getId());
 	}
 	
 	private void loadPlugins() {
@@ -487,8 +474,11 @@ public class PluginManagerImpl implements PluginManager {
 			return validateInstalledPackage(directory);
 		}
 		String entryPoint = model.getPath();
-		String relative = entryPoint.substring("plugins.".length()).replace('.', File.separatorChar) + ".yaml";
-		return PluginDescriptorReader.read(new File(pluginsDir, relative));
+		String relative = entryPoint.replace('.', '/') + ".yaml";
+		try (InputStream input = PluginManagerImpl.class.getClassLoader().getResourceAsStream(relative)) {
+			if (input == null) throw new IOException("Built-in plugin descriptor is missing: " + relative);
+			return PluginDescriptorReader.read(input, relative);
+		}
 	}
 
 	private PluginDefinition definition(final PluginModel model, final PluginDescriptor descriptor) {

@@ -54,6 +54,46 @@ The repository is the developer deliverable. End users should instead download
 the versioned Windows ZIP from GitHub Releases and use `start-companyware.cmd` as
 described in the user guide.
 
+## Eclipse development versus user deployment
+
+Eclipse runs compiled classes and resources from `target/classes`; this is a
+development layout, not a distributable installation. Never assemble a release
+by copying individual Eclipse output folders. The supported deployment build is
+reproducible and packages mappings, plugin descriptors, classes and dependencies
+into the executable Spring Boot JAR. It then creates `Companyware.exe` from that
+tested JAR with Launch4j before assembling the Windows ZIP.
+
+From PowerShell run:
+
+```powershell
+.\tools\verify-framework-release.ps1
+```
+
+For a double-clickable Windows entry point use:
+
+```text
+build-windows-release.cmd
+```
+
+In Eclipse, add it through **Run → External Tools → External Tools
+Configurations → Program**:
+
+- Location: `${workspace_loc:/Companyware/build-windows-release.cmd}`
+- Working Directory: `${workspace_loc:/Companyware}`
+- Arguments: `--no-pause`
+
+Select the JDK 8 in Eclipse and ensure the launched environment exposes the same
+`JAVA_HOME`. A successful run prints `RELEASE BUILD PASSED` and writes both
+`Companyware.jar` and `Companyware.exe` below the versioned directory in
+`target/release`. A red Maven test or gate leaves no approved
+release even if an older ZIP is still present.
+
+Launch4j creates a native Windows launcher, not a bundled Java runtime or an MSI
+installer. The resulting EXE starts the adjacent `Companyware.jar`; both files
+must remain in the same directory, and Java 8 or newer is required on the target
+computer. An installer with a private runtime can be evaluated as a separate
+future packaging step.
+
 The supported public-framework boundary, compatibility promise, MIT header policy
 and publication gates are defined in [`framework-release.md`](framework-release.md).
 Run `tools/verify-framework-release.ps1` before preparing a framework release.
