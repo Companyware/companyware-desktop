@@ -224,7 +224,7 @@
                 		<!-- this is to extract the JRE tgz file we downloaded -->
                 		<groupId>org.apache.maven.plugins</groupId>
                 		<artifactId>maven-dependency-plugin</artifactId>
-                		<version>2.5.1</version>
+                		<version>3.11.0</version>
                 		<executions>
                     		<execution>
                         		<phase>generate-resources</phase>
