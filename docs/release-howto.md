@@ -6,8 +6,9 @@ Pre-release veröffentlichen. Jeder Schritt nennt das erwartete Ergebnis. Bei
 einer Abweichung nicht weitergehen, sondern zuerst den Hinweis unter
 **Wenn es nicht klappt** verwenden.
 
-Normale Benutzer benötigen diese Schritte nicht. Sie laden die fertige Windows-
-ZIP aus dem GitHub-Release, entpacken sie und starten `start-companyware.cmd`.
+Normale Benutzer benötigen diese Schritte nicht. Sie laden den eigenständigen
+`Companyware-Setup.exe` über die Downloadseite und folgen dem Installer. Die
+portable ZIP bleibt für kontrollierte Starts und Entwicklerprüfungen verfügbar.
 
 Der vollständige Weg besteht aus zwölf Kontrollpunkten:
 
@@ -21,7 +22,8 @@ Der vollständige Weg besteht aus zwölf Kontrollpunkten:
 8. GitHub-Security- und Dependency-Ansichten prüfen.
 9. Windows-ZIP wie ein Benutzer starten und sauber beenden.
 10. Exakte Freigabe für Commit, Tag und Pre-release erteilen.
-11. Tag und GitHub Pre-release mit den drei Assets veröffentlichen.
+11. Tag pushen; der GitHub-Workflow baut Installer und Assets und veröffentlicht
+    das Release automatisch.
 12. Assets erneut herunterladen, Hash und Start prüfen und das Ergebnis dokumentieren.
 
 Wer Codex zur Unterstützung verwenden möchte, folgt stattdessen dem ergänzenden
@@ -169,39 +171,40 @@ kaschieren. Veröffentlichung stoppen und den dokumentierten Korrekturweg mit
 Vier-Augen-Prüfung verwenden. Bereits veröffentlichte Tags werden nicht still
 verschoben.
 
-## 8. GitHub Pre-release anlegen
+## 8. Automatisches GitHub-Release kontrollieren
 
-1. Öffnen Sie das Repository auf GitHub.
-2. Wählen Sie rechts **Releases** und dann **Draft a new release**.
-3. Wählen Sie den bereits gepushten Tag `v<Version>`.
-4. Titel: `Companyware Desktop <Version>`.
-5. Übernehmen Sie die geprüften Release-Notizen aus
-   `docs/release-notes/<Version>.md`.
-6. Aktivieren Sie **Set as a pre-release**.
-7. Laden Sie genau diese geprüften Dateien aus `target\release` hoch:
-   - `companyware-desktop-<Version>.zip`
-   - `companyware-desktop-<Version>.zip.sha256`
-   - `release-evidence.json`
-8. Kontrollieren Sie Tag, Version und Dateinamen, dann veröffentlichen Sie den
-   Pre-release.
+Der Tag-Push startet **Publish Companyware Desktop release**. Der Workflow baut
+erneut, erzeugt den eigenständigen Installer mit privater Java-Laufzeit, bereitet
+die festen Asset-Namen vor und legt das Release an. Versionen wie
+`0.29.0-rc.2` werden automatisch als Pre-release markiert.
 
-Keine JAR, ZIP oder EXE wird in den Git-Source eingecheckt. JAR und die daraus
-mit Launch4j erzeugte EXE stecken im Windows-ZIP. Vor der Veröffentlichung sind
-beide Startwege im separaten Windows-Start/Stop-Gate zu prüfen. Ein signierter
-Installer mit eigener Java-Laufzeit ist nicht Bestandteil dieses Kandidaten.
+Kontrollieren Sie im Actions-Lauf und im Release:
+
+- `Companyware-Setup.exe` für normale Benutzer;
+- `companyware-desktop.zip` als portable Ausgabe;
+- `SHA256SUMS.txt`, `release.json` und `release-evidence.json`;
+- den exakten Tag, Commit und die freigegebenen Release Notes.
+
+Keine JAR, ZIP oder EXE wird in den Git-Source eingecheckt. Der Installer und die
+portable Ausgabe müssen nach dem Download separat unter Windows installiert bzw.
+gestartet, beendet und auf freigegebene Dateihandles geprüft werden. Details und
+die dauerhaften WordPress-Links stehen in
+[`github-release-automation.md`](github-release-automation.md).
 
 ## 9. Veröffentlichung von außen nachprüfen
 
-Laden Sie die ZIP und die Prüfsummendatei aus dem soeben veröffentlichten
-GitHub-Release in einen neuen Ordner und prüfen Sie:
+Laden Sie Installer, portable ZIP und Prüfsummendatei aus dem soeben
+veröffentlichten GitHub-Release in einen neuen Ordner und prüfen Sie:
 
 ```powershell
-Get-FileHash .\companyware-desktop-<Version>.zip -Algorithm SHA256
-Get-Content .\companyware-desktop-<Version>.zip.sha256
+Get-FileHash .\Companyware-Setup.exe -Algorithm SHA256
+Get-FileHash .\companyware-desktop.zip -Algorithm SHA256
+Get-Content .\SHA256SUMS.txt
 ```
 
-**Erwartet:** Beide SHA-256-Werte sind identisch. Entpacken und starten Sie auch
-diesen heruntergeladenen Stand einmal. Erst dann ist die Veröffentlichung
+**Erwartet:** Beide berechneten SHA-256-Werte stimmen mit ihrem jeweiligen Eintrag
+in `SHA256SUMS.txt` überein. Installieren Sie den heruntergeladenen Installer und
+starten Sie auch die portable Ausgabe einmal. Erst dann ist die Veröffentlichung
 abgeschlossen. Release-URL, Tag, öffentlicher Commit und Hashes werden in den
 Release-Unterlagen dieses Repositorys dokumentiert.
 

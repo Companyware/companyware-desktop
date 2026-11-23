@@ -38,7 +38,23 @@ try {
         throw 'The GitHub workflow must declare read-only repository contents permission.'
     }
 
-    Write-Output 'Publication safety verified: no tracked runtime/secret paths and read-only workflow permissions are present.'
+    $releaseWorkflow = '.github/workflows/release.yml'
+    if (Test-Path -LiteralPath $releaseWorkflow -PathType Leaf) {
+        $releaseWorkflowText = Get-Content -LiteralPath $releaseWorkflow -Raw
+        if ($releaseWorkflowText -notmatch '(?m)^\s+tags:\s*$' -or
+            $releaseWorkflowText -notmatch '(?m)^\s+-\s+["'']v\*["'']\s*$') {
+            throw 'The release workflow must be limited to explicit v* tag pushes.'
+        }
+        if ($releaseWorkflowText -match '(?m)^\s*pull_request\s*:') {
+            throw 'The write-enabled release workflow must never run for pull requests.'
+        }
+        if ($releaseWorkflowText -notmatch '(?m)^permissions:\s*$' -or
+            $releaseWorkflowText -notmatch '(?m)^\s+contents:\s+write\s*$') {
+            throw 'The tag-only release workflow must declare its contents: write permission explicitly.'
+        }
+    }
+
+    Write-Output 'Publication safety verified: runtime/secret paths are absent; verification is read-only and release writes are tag-only.'
 } finally {
     Pop-Location
 }

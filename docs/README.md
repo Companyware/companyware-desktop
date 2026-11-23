@@ -29,6 +29,8 @@ kennen muss.
 
 - [Vom ersten Download zum eigenen Release](release-howto.md): lückenloser
   Windows-Ablauf für Maintainer mit erwarteten Ergebnissen und Fehlerhilfe
+- [Automatisiertes GitHub-Release und WordPress-Download](github-release-automation.md):
+  tag-gesteuerter Installerbau, feste Asset-Namen und dauerhafte Downloadlinks
 - [Release mit Codex begleiten](codex-release-howto.md): derselbe Zwölf-Punkte-
   Prozess mit fertigen Codex-Aufträgen und einem zwingenden Freigabepunkt
 - [Privater Embedded-Betrieb](benutzerhandbuch.md#privater-betrieb)

@@ -19,11 +19,11 @@ repository never claims that a Desktop release also releases the Web application
 ## Download and quick start
 
 Executable binaries are not committed to the Git source history. Each approved
-GitHub pre-release provides a versioned Windows ZIP as a release asset after its
-release gates pass. The ZIP contains `Companyware.jar`, the Launch4j-generated
-`Companyware.exe`, `start-companyware.cmd`, matching documentation and checksums.
-A user with a supported Java runtime can unpack the ZIP and start either the EXE
-or the command file without compiling the source.
+GitHub release provides `Companyware-Setup.exe`, a self-contained per-user
+Windows installer with a private Java 8 runtime, plus a portable Windows ZIP,
+checksums and release evidence. The portable ZIP contains `Companyware.jar`, the
+Launch4j-generated `Companyware.exe`, `start-companyware.cmd` and matching
+documentation; it still requires a supported Java runtime.
 
 Branches and untagged commits remain source-only Development Previews. Download
 executable files only from an explicitly marked GitHub Release or Pre-release,
@@ -88,7 +88,9 @@ For a verified distributable archive, set `JAVA_HOME` to a JDK and run
 procedure are documented in [docs/release-process.md](docs/release-process.md).
 Maintainers following the process for the first time should use the step-by-step
 [release how-to](docs/release-howto.md), which covers a fresh clone through the
-final GitHub download verification.
+final GitHub download verification. The tag-triggered GitHub workflow and the
+permanent WordPress download URLs are documented in the
+[GitHub release automation guide](docs/github-release-automation.md).
 
 On Windows, `build-windows-release.cmd` provides the same verified build as a
 double-clickable entry point. It does not copy Eclipse output manually: Maven

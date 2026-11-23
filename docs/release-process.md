@@ -69,6 +69,15 @@ diesem Commit angelegt. Erst danach werden Tag und unveränderliche Artefakte
 explizit veröffentlicht. Lokale Daten und ungeprüfte Buildausgaben werden nie
 übertragen.
 
+Der Push eines freigegebenen Tags `v<Version>` startet den Workflow
+`.github/workflows/release.yml`. Er wiederholt das vollständige Gate, erstellt
+den eigenständigen Per-User-Installer mit privater Java-8-Laufzeit, verlangt eine
+exakte Übereinstimmung von Tag und `pom.xml` und veröffentlicht feste Asset-Namen.
+Normale Branch-Pushes erzeugen kein Release. Release Candidates werden als
+Pre-release markiert und ersetzen nicht den stabilen WordPress-Endbenutzerlink.
+Der vollständige Betriebsablauf steht in
+[`github-release-automation.md`](github-release-automation.md).
+
 ## Upgrade und Rollback
 
 Vor jedem Upgrade wird die Derby-Datenbank gemäß `derby-backup.md` konsistent

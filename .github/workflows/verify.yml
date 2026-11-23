@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   release-gate:
-    runs-on: windows-latest
+    runs-on: windows-2022
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
@@ -27,6 +27,16 @@ jobs:
         env:
           CW_POLICY_BASE_REF: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || '' }}
         run: .\tools\verify-framework-release.ps1
+      - name: Verify self-contained Windows installer build
+        shell: pwsh
+        run: |
+          $compiler = 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe'
+          if (-not (Test-Path -LiteralPath $compiler)) {
+            throw "The pinned windows-2022 image does not provide Inno Setup 6 at $compiler."
+          }
+          .\tools\build-windows-installer.ps1 `
+            -JavaRuntimeDirectory (Join-Path $env:JAVA_HOME 'jre') `
+            -InnoSetupCompiler $compiler
       - name: Upload reproducible candidate artifacts
         if: success()
         uses: actions/upload-artifact@v4
@@ -38,5 +48,6 @@ jobs:
             target/release/companyware-desktop-*/Companyware.jar.sha256
             target/release/dependency-inventory.txt
             target/release/release-evidence.json
+            target/release/publish/Companyware-Setup.exe
           if-no-files-found: error
           retention-days: 14

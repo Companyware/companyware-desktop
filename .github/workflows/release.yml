@@ -1,0 +1,81 @@
+name: Publish Companyware Desktop release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: desktop-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  windows-release:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - name: Check out the immutable tag
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "8"
+          cache: maven
+
+      - name: Verify framework and build portable release
+        shell: pwsh
+        run: .\tools\verify-framework-release.ps1
+
+      - name: Locate Inno Setup
+        id: inno
+        shell: pwsh
+        run: |
+          $compiler = 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe'
+          if (-not (Test-Path -LiteralPath $compiler)) {
+            throw "The pinned windows-2022 image does not provide Inno Setup 6 at $compiler."
+          }
+          "compiler=$compiler" >> $env:GITHUB_OUTPUT
+
+      - name: Build self-contained Windows installer
+        shell: pwsh
+        run: |
+          .\tools\build-windows-installer.ps1 `
+            -JavaRuntimeDirectory (Join-Path $env:JAVA_HOME 'jre') `
+            -InnoSetupCompiler '${{ steps.inno.outputs.compiler }}'
+
+      - name: Prepare stable GitHub asset names
+        shell: pwsh
+        run: .\tools\prepare-github-release.ps1 -Tag '${{ github.ref_name }}'
+
+      - name: Upload release-build evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: companyware-desktop-${{ github.ref_name }}
+          path: target/release/publish/*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [xml]$pom = Get-Content -Raw .\pom.xml
+          $version = [string]$pom.project.version
+          $arguments = @(
+            'release', 'create', '${{ github.ref_name }}',
+            '--verify-tag',
+            '--title', "Companyware Desktop $version",
+            '--notes-file', ".\docs\release-notes\$version.md"
+          )
+          if ($version.Contains('-')) { $arguments += '--prerelease' }
+          $arguments += Get-ChildItem .\target\release\publish -File | ForEach-Object { $_.FullName }
+          & gh @arguments
+          if ($LASTEXITCODE -ne 0) { throw "GitHub release creation failed with exit code $LASTEXITCODE." }

@@ -8,26 +8,24 @@ Installation abweichen.
 
 ## 1. Installieren und starten
 
-Companyware Desktop wird als versionierte Windows-ZIP über die GitHub-Releases
-des Projekts bereitgestellt. Laden Sie nur ein freigegebenes Release-Asset aus
-dem offiziellen Repository und vergleichen Sie dessen SHA-256-Prüfsumme mit der
-mitgelieferten Prüfsummendatei.
+Companyware Desktop wird als eigenständiger Windows-Installer über die
+GitHub-Releases des Projekts bereitgestellt. Laden Sie nur ein freigegebenes
+Release-Asset aus dem offiziellen Repository und vergleichen Sie dessen
+SHA-256-Prüfsumme mit `SHA256SUMS.txt`.
 
-1. Installieren Sie eine 64-Bit-Java-8-Laufzeit oder eine neuere kompatible
-   Java-Laufzeit.
-2. Entpacken Sie die ZIP vollständig in ein beschreibbares Verzeichnis. Starten
-   Sie das Programm nicht direkt aus der ZIP.
-3. Öffnen Sie den entpackten Ordner und starten Sie `Companyware.exe`. Falls der
-   EXE-Start nicht möglich ist, verwenden Sie `start-companyware.cmd`.
-4. Bestätigen Sie keine Sicherheitswarnung für eine Datei aus einer anderen
-   Quelle. Companyware 0.29.0-rc.2 besitzt noch keinen signierten
-   Windows-Installer und bringt keine eigene Java-Laufzeit mit.
+1. Laden Sie `Companyware-Setup.exe` über die offizielle Downloadseite herunter.
+2. Starten Sie den Installer und wählen Sie bei Bedarf das optionale
+   Desktopsymbol.
+3. Wählen Sie nach Abschluss **Companyware Desktop starten** oder öffnen Sie den
+   Eintrag im Startmenü.
+4. Eine separate Java-Installation ist nicht erforderlich. Der Installer bringt
+   eine private Java-8-Laufzeit ausschließlich für Companyware mit.
 
-Die ZIP enthält den Launch4j-Starter, die ausführbare `Companyware.jar`, das
-Startskript, Dokumentation und Prüfsummen. EXE und Startskript starten dieselbe
-JAR und benötigen Java 8 oder neuer. Entwickler müssen den Quellcode für die
-normale Nutzung nicht herunterladen oder kompilieren. `Companyware.exe` und
-`Companyware.jar` müssen im selben Ordner bleiben.
+Der Installer installiert die Programmdateien benutzerspezifisch unter
+`%LOCALAPPDATA%\Programs\Companyware Desktop`. Die lokale Datenbank und
+installierte Plugins liegen getrennt davon unter `%APPDATA%\Companyware`, damit
+ein Programmupdate sie nicht ersetzt. Vor einem Upgrade bleibt trotzdem die
+dokumentierte Datensicherung verpflichtend.
 
 Companyware kann privat mit einer eingebetteten Datenbank oder in einer kleinen
 Firma mit einem zentralen Derby-Datenbankserver betrieben werden. Die Betriebsart
@@ -36,11 +34,18 @@ wird durch die Installation vorgegeben und muss im Alltag nicht ausgewählt werd
 Nach dem Start erscheint zunächst die Ladeanzeige. Wenn alle Kernmodule vorbereitet
 sind, öffnet sich die Anwendung mit dem Anmeldefenster.
 
-Falls das Startskript meldet, dass Java nicht gefunden wurde, prüfen Sie in einer
-Eingabeaufforderung `java -version` und installieren beziehungsweise konfigurieren
-Sie die Java-Laufzeit. Verschieben Sie nach der ersten Nutzung nicht nur einzelne
-Dateien aus dem entpackten Ordner; Anwendung, Dokumentation und lokale Daten müssen
-als zusammengehörige Installation behandelt und vor Updates gesichert werden.
+Die zusätzlich angebotene portable ZIP enthält den Launch4j-Starter, die
+ausführbare `Companyware.jar`, das Startskript, Dokumentation und Prüfsummen. Sie
+ist für kontrollierte portable Starts und Entwicklerprüfungen bestimmt und
+benötigt Java 8 oder neuer. `Companyware.exe` und `Companyware.jar` müssen dabei
+im selben Ordner bleiben. Entwickler müssen für die normale Nutzung keinen
+Quellcode herunterladen oder kompilieren.
+
+Zeigt Windows bei einem noch nicht codesignierten Entwicklungsstand einen
+unbekannten Herausgeber, prüfen Sie Herkunft und SHA-256-Wert. Umgehen Sie die
+Warnung niemals für eine Datei aus einer anderen Quelle. Für eine stabile
+öffentliche Version bleibt eine geprüfte Authenticode-Signatur ein separates
+Freigabegate.
 
 ## 2. Anmelden
 
