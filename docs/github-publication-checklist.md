@@ -6,7 +6,7 @@ release. Gitolite `develop` remains authoritative until explicit approval.
 ## Exact candidate
 
 - Product: **Companyware Desktop**
-- Candidate: `0.29.0-rc.2`
+- Candidate: `0.29.0` Development Preview
 - Commit: fill from `git rev-parse HEAD` only after the preparation commit is
   reviewed and selected
 - Public target: `Companyware/companyware-desktop` branch `main`
@@ -43,7 +43,7 @@ release. Gitolite `develop` remains authoritative until explicit approval.
 1. Record the exact verified commit and hashes from `release-evidence.json`.
 2. Obtain explicit publication approval.
 3. Update GitHub `main` to that exact reviewed commit without rewriting history.
-4. Create an annotated tag `v0.29.0-rc.2` on the same commit.
+4. Create an annotated tag `v0.29.0` on the same commit.
 5. Push the approved tag. `.github/workflows/release.yml` repeats the release
    gate, builds the self-contained per-user installer and publishes
    `Companyware-Setup.exe`, `companyware-desktop.zip`, `SHA256SUMS.txt`,

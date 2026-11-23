@@ -32,7 +32,7 @@ Auf Windows mit einem JDK in `JAVA_HOME`:
 
 Das Skript führt das vollständige Maven-Gate aus und erzeugt unter
 `target/release` das ausführbare `Companyware.jar`, die Launch4j-`Companyware.exe`, deren SHA-256-Dateien sowie
-ein versionsspezifisches Archiv wie `companyware-desktop-0.29.0-rc.2.zip` und
+ein versionsspezifisches Archiv wie `companyware-desktop-0.29.0.zip` und
 dessen SHA-256-Datei. Das Archiv enthält außerdem MIT-Lizenz,
 Security-/Support-Hinweise, das exakte Dependency-Inventar und den Commit in
 `BUILD-COMMIT`. `release-evidence.json` verknüpft Version, Commit und alle

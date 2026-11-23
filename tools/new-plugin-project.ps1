@@ -107,7 +107,7 @@ $tokens = @{
     '__ENTRY_CLASS__' = $EntryClass
     '__AUTHOR_YAML__' = ConvertTo-YamlSingleQuoted $Author
     '__PLUGIN_VERSION__' = $Version
-    '__SDK_VERSION__' = '0.29.0-rc.2'
+    '__SDK_VERSION__' = '0.29.0'
     '__SDK_API_VERSION__' = '1.0.0'
 }
 

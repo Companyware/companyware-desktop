@@ -37,7 +37,7 @@ in [the developer guide](docs/developer-guide.md).
 1. Set `JAVA_HOME` to a 64-bit JDK 8.
 2. Double-click `build-windows-release.cmd` in the repository root.
 3. After `RELEASE BUILD PASSED`, open
-   `target\release\companyware-desktop-0.29.0-rc.2`.
+   `target\release\companyware-desktop-0.29.0`.
 4. Start `Companyware.exe`. Alternatively use `start-companyware.cmd` or
    `java -jar Companyware.jar`.
 

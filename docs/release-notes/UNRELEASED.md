@@ -1,8 +1,8 @@
 # Companyware Desktop — unreleased development preview
 
 This document is a preparation record, not a published release announcement.
-The next candidate is documented in `0.29.0-rc.2.md`; the earlier preparation
-record remains in `0.29.0-rc.1.md`. A publication date,
+The published Development Preview is documented in `0.29.0.md`; the earlier
+preparation records remain in `0.29.0-rc.1.md` and `0.29.0-rc.2.md`. A future publication date,
 signed tag and public artifact links are filled only after every release gate has
 passed and publication is explicitly approved.
 

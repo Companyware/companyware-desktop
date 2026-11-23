@@ -1,3 +1,4 @@
+0.29.0: Publish the Development Preview with a self-contained Windows installer and automated GitHub releases
 0.29.0-rc.2: Add the standalone plugin starter, complete navigation-state fixes and prepare a version-consistent GitHub preview
 
 0.29.0-rc.1: Identify Companyware Desktop, modernize the Java-8 dependency baseline and prepare reproducible unpublished release evidence

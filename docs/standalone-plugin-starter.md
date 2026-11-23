@@ -9,7 +9,7 @@ erstellt ein reproduzierbares `.cwp`-Paket. Es installiert oder aktiviert nichts
 ## Was wird benötigt?
 
 - ein JDK 8 mit `javac`, nicht nur eine JRE;
-- Companyware Desktop `0.29.0-rc.2` aus dem passenden Source-Stand;
+- Companyware Desktop `0.29.0` aus dem passenden Source-Stand;
 - ein neues oder noch nicht vorhandenes Zielverzeichnis;
 - PowerShell für den aktuellen Generator.
 
@@ -21,7 +21,7 @@ Repository:
 ```
 
 Der Desktop-Build erzeugt dabei zusätzlich
-`Companyware:Companyware:0.29.0-rc.2:sdk`. Das Classifier-JAR enthält nur
+`Companyware:Companyware:0.29.0:sdk`. Das Classifier-JAR enthält nur
 `platform.api.*`. Ein Pluginprojekt darf nicht gegen das vollständige Desktop-JAR
 kompilieren.
 

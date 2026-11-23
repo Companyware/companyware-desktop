@@ -39,7 +39,7 @@ kennen muss.
 - [Sichere Betreiber-Recovery](derby-backup.md#zugangsdaten-und-recovery-schluessel)
 - [SMTP für Kontowiederherstellung](derby-backup.md#smtp-für-e-mail-bestätigung-und-kontowiederherstellung)
 - [Qualität, Releases und Rollback](release-process.md)
-- [Dependency- und Security-Review 0.29.0-rc.2](security-review-0.29.0-rc.2.md)
+- [Dependency- und Security-Review 0.29.0](security-review-0.29.0.md)
 - [Security-Meldungen und unterstützte Versionen](../SECURITY.md)
 - [Support und sichere Fehlerberichte](../SUPPORT.md)
 
@@ -53,7 +53,7 @@ kennen muss.
   Java-8-Starter, versionsgebundenes SDK und reproduzierbares `.cwp`
 - [Desktop-Framework veröffentlichen](framework-release.md): öffentlicher Umfang, Kompatibilität, Lizenz- und Release-Gates
 - [Unveröffentlichte Release-Notizen](release-notes/UNRELEASED.md): vorbereitete Evidenz und noch offene Gates
-- [Release Candidate 0.29.0-rc.2](release-notes/0.29.0-rc.2.md): aktueller unveröffentlichter GitHub-Kandidat
+- [Development Preview 0.29.0](release-notes/0.29.0.md): erster automatisierter Desktop-Installer und GitHub-Download
 - [GitHub-Publikationscheckliste](github-publication-checklist.md): exakte lokale, externe und Freigabe-Gates
 - [GitHub-Repository-Umzug](github-repository-migration.md): Trennung von historischem Repository, Desktop und Web
 - [Mitwirken](../CONTRIBUTING.md): Build, Pull Requests und Desktop/Web-Grenze
