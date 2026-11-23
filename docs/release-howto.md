@@ -152,7 +152,7 @@ gesperrt blieb.
 vor Weitergabe auf Benutzernamen oder interne Adressen prüfen. Den Prozess nicht
 einfach als bestandenen Test im Task-Manager beenden.
 
-## 7. Tag erstellen und pushen
+## 7. Tag erstellen und pushen oder den manuellen Release-Button verwenden
 
 Erst nach allen bestandenen Gates und ausdrücklicher Veröffentlichungsfreigabe:
 
@@ -162,6 +162,12 @@ git rev-parse HEAD
 git tag -a v<Version> -m "Companyware Desktop <Version>"
 git push origin v<Version>
 ```
+
+Alternativ kann auf GitHub unter **Actions → Publish Companyware Desktop
+release → Run workflow** die bereits auf `main` vorbereitete Version eingegeben
+und mit dem exakten Wort `RELEASE` bestätigt werden. Dieser Weg prüft Version,
+Release Notes und Security Review, führt die Gates aus und erstellt den Tag erst
+nach erfolgreichem Build. Ein normaler Push startet keine Veröffentlichung.
 
 Beispiel: `v0.29.0-rc.2`. Der Tag muss auf genau dem Commit liegen, den
 `target\release\release-evidence.json` nennt.

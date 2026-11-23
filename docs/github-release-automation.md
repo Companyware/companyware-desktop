@@ -7,9 +7,12 @@ einen eigenständigen Windows-Installer mit privater Java-8-Laufzeit und
 veröffentlicht Installer, portable ZIP, Prüfsummen und Release-Evidenz. Die
 WordPress-Downloadseite benötigt dadurch keinen manuellen Dateiaustausch mehr.
 
-Ein normaler Push auf `main` oder `develop` veröffentlicht keine Binärdatei. Nur
-ein ausdrücklich freigegebener Tag `v<Version>` startet
-`.github/workflows/release.yml`.
+Ein normaler Push auf `main` oder `develop` veröffentlicht keine Binärdatei.
+`.github/workflows/release.yml` startet entweder durch einen ausdrücklich
+freigegebenen Tag `v<Version>` oder manuell über **Actions → Publish Companyware
+Desktop release → Run workflow**. Der manuelle Weg verlangt die vorbereitete
+Version und die exakte Bestätigung `RELEASE`; er erzeugt den Tag erst nach
+bestandenen Build- und Release-Gates.
 
 ## Voraussetzungen
 
@@ -22,6 +25,27 @@ ein ausdrücklich freigegebener Tag `v<Version>` startet
   `contents: write` für Releases.
 
 ## Veröffentlichung
+
+### Manueller GitHub-Button
+
+Bereiten Sie zuerst die neue Version vollständig auf `main` vor. `pom.xml`,
+`docs/release-notes/<Version>.md` und `docs/security-review-<Version>.md` müssen
+bereits geprüft und gepusht sein. Danach:
+
+1. GitHub-Repository öffnen und **Actions** wählen.
+2. Links **Publish Companyware Desktop release** öffnen.
+3. **Run workflow** wählen und den Standardbranch `main` beibehalten.
+4. Unter `version` beispielsweise `0.29.1` eintragen.
+5. Unter `confirmation` exakt `RELEASE` eintragen.
+6. **Run workflow** bestätigen.
+
+Der Workflow bricht ab, wenn Version und `pom.xml` nicht übereinstimmen,
+Pflichtdokumente fehlen, der Tag bereits existiert oder ein Gate fehlschlägt.
+Erst nach erfolgreichem Build erzeugt er den annotierten Tag und das GitHub
+Release. Die Schaltfläche erhöht bewusst nicht selbstständig die Version und
+erfindet keine Release Notes oder Security-Freigaben.
+
+### Tag von der Kommandozeile
 
 Nach der dokumentierten Prüfung und ausdrücklichen Freigabe:
 

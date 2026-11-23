@@ -48,13 +48,19 @@ try {
         if ($releaseWorkflowText -match '(?m)^\s*pull_request\s*:') {
             throw 'The write-enabled release workflow must never run for pull requests.'
         }
+        if ($releaseWorkflowText -match '(?m)^\s+workflow_dispatch:\s*$') {
+            if ($releaseWorkflowText -notmatch '(?m)^\s+confirmation:\s*$' -or
+                $releaseWorkflowText -notmatch "(?m)-cne 'RELEASE'") {
+                throw 'A manually dispatched release must require the exact RELEASE confirmation.'
+            }
+        }
         if ($releaseWorkflowText -notmatch '(?m)^permissions:\s*$' -or
             $releaseWorkflowText -notmatch '(?m)^\s+contents:\s+write\s*$') {
             throw 'The tag-only release workflow must declare its contents: write permission explicitly.'
         }
     }
 
-    Write-Output 'Publication safety verified: runtime/secret paths are absent; verification is read-only and release writes are tag-only.'
+    Write-Output 'Publication safety verified: runtime/secret paths are absent; verification is read-only and release writes require an explicit tag push or confirmed manual dispatch.'
 } finally {
     Pop-Location
 }
