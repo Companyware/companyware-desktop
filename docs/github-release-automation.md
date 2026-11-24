@@ -6,6 +6,8 @@ Ein freigegebener Versionstag baut Companyware Desktop auf GitHub neu, erstellt
 einen eigenständigen Windows-Installer mit privater Java-8-Laufzeit und
 veröffentlicht Installer, portable ZIP, Prüfsummen und Release-Evidenz. Die
 WordPress-Downloadseite benötigt dadurch keinen manuellen Dateiaustausch mehr.
+Der Installer, die portable Windows-EXE sowie die Startmenü- und optionalen
+Desktop-Verknüpfungen verwenden das blaue Companyware-C als Windows-Icon.
 
 Ein normaler Push auf `main` oder `develop` veröffentlicht keine Binärdatei.
 `.github/workflows/release.yml` startet entweder durch einen ausdrücklich

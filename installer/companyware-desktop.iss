@@ -40,6 +40,7 @@ ArchitecturesAllowed=x86compatible x64compatible
 CloseApplications=yes
 RestartApplications=no
 Uninstallable=yes
+SetupIconFile={#SourceDir}\Companyware.ico
 
 [Languages]
 Name: "german"; MessagesFile: "compiler:Languages\German.isl"
@@ -59,8 +60,8 @@ Source: "{#RuntimeDir}\..\ASSEMBLY_EXCEPTION"; DestDir: "{app}\runtime"; DestNam
 Source: "{#RuntimeDir}\..\THIRD_PARTY_README"; DestDir: "{app}\runtime"; DestName: "TEMURIN-THIRD-PARTY-README"; Flags: ignoreversion skipifsourcedoesntexist
 
 [Icons]
-Name: "{group}\Companyware Desktop"; Filename: "{app}\runtime\bin\javaw.exe"; Parameters: "-Dcompanyware.persistence.embedded.path=""{userappdata}\Companyware\data\companyware"" -Dcompanyware.plugins.directory=""{userappdata}\Companyware\plugins-installed"" -jar ""{app}\Companyware.jar"""; WorkingDir: "{userappdata}\Companyware"
-Name: "{autodesktop}\Companyware Desktop"; Filename: "{app}\runtime\bin\javaw.exe"; Parameters: "-Dcompanyware.persistence.embedded.path=""{userappdata}\Companyware\data\companyware"" -Dcompanyware.plugins.directory=""{userappdata}\Companyware\plugins-installed"" -jar ""{app}\Companyware.jar"""; WorkingDir: "{userappdata}\Companyware"; Tasks: desktopicon
+Name: "{group}\Companyware Desktop"; Filename: "{app}\runtime\bin\javaw.exe"; Parameters: "-Dcompanyware.persistence.embedded.path=""{userappdata}\Companyware\data\companyware"" -Dcompanyware.plugins.directory=""{userappdata}\Companyware\plugins-installed"" -jar ""{app}\Companyware.jar"""; WorkingDir: "{userappdata}\Companyware"; IconFilename: "{app}\Companyware.ico"
+Name: "{autodesktop}\Companyware Desktop"; Filename: "{app}\runtime\bin\javaw.exe"; Parameters: "-Dcompanyware.persistence.embedded.path=""{userappdata}\Companyware\data\companyware"" -Dcompanyware.plugins.directory=""{userappdata}\Companyware\plugins-installed"" -jar ""{app}\Companyware.jar"""; WorkingDir: "{userappdata}\Companyware"; IconFilename: "{app}\Companyware.ico"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\runtime\bin\javaw.exe"; Parameters: "-Dcompanyware.persistence.embedded.path=""{userappdata}\Companyware\data\companyware"" -Dcompanyware.plugins.directory=""{userappdata}\Companyware\plugins-installed"" -jar ""{app}\Companyware.jar"""; WorkingDir: "{userappdata}\Companyware"; Description: "Companyware Desktop starten"; Flags: nowait postinstall skipifsilent

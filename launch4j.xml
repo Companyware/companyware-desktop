@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon></icon>
+  <icon>src\main\resources\images\companyware.ico</icon>
   <jre>
     <requiresJdk>false</requiresJdk>
     <requires64Bit>false</requires64Bit>

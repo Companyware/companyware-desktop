@@ -51,6 +51,7 @@ try {
     New-Item -ItemType Directory -Force -Path $stage | Out-Null
     Copy-Item -LiteralPath 'target/Companyware.jar' -Destination (Join-Path $stage 'Companyware.jar')
     Copy-Item -LiteralPath 'target/Companyware.exe' -Destination (Join-Path $stage 'Companyware.exe')
+    Copy-Item -LiteralPath 'src/main/resources/images/companyware.ico' -Destination (Join-Path $stage 'Companyware.ico')
     Copy-Item -LiteralPath 'tools/start-companyware.cmd' -Destination (Join-Path $stage 'start-companyware.cmd')
     Copy-Item -LiteralPath 'README.md','CHANGELOG.md','LICENSE','SECURITY.md','SUPPORT.md' -Destination $stage
     Copy-Item -LiteralPath 'docs' -Destination $stage -Recurse

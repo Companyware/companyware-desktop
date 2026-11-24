@@ -228,6 +228,7 @@
                             <jar>Companyware.jar</jar>
                             <errTitle>Companyware Desktop</errTitle>
                             <chdir>.</chdir>
+                            <icon>src/main/resources/images/companyware.ico</icon>
                             <jre>
                                 <minVersion>1.8.0</minVersion>
                                 <requiresJdk>false</requiresJdk>

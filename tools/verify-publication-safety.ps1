@@ -28,6 +28,27 @@ try {
         throw "Publication contains forbidden runtime, secret or generated paths:`n$($violations -join "`n")"
     }
 
+    $windowsIcon = 'src/main/resources/images/companyware.ico'
+    if (-not (Test-Path -LiteralPath $windowsIcon -PathType Leaf)) {
+        throw 'The branded Windows icon is missing.'
+    }
+    $iconBytes = [IO.File]::ReadAllBytes((Resolve-Path -LiteralPath $windowsIcon))
+    if ($iconBytes.Length -lt 22 -or
+        [BitConverter]::ToUInt16($iconBytes, 0) -ne 0 -or
+        [BitConverter]::ToUInt16($iconBytes, 2) -ne 1 -or
+        [BitConverter]::ToUInt16($iconBytes, 4) -lt 1) {
+        throw 'The branded Windows icon has an invalid ICO header.'
+    }
+    $pomText = Get-Content -LiteralPath 'pom.xml' -Raw
+    if ($pomText -notmatch '<icon>src/main/resources/images/companyware\.ico</icon>') {
+        throw 'Launch4j must embed the branded Windows icon.'
+    }
+    $installerText = Get-Content -LiteralPath 'installer/companyware-desktop.iss' -Raw
+    if ($installerText -notmatch 'SetupIconFile=\{#SourceDir\}\\Companyware\.ico' -or
+        $installerText -notmatch 'IconFilename: "\{app\}\\Companyware\.ico"') {
+        throw 'The installer and installed shortcuts must use the branded Windows icon.'
+    }
+
     $workflow = '.github/workflows/verify.yml'
     if (-not (Test-Path -LiteralPath $workflow -PathType Leaf)) {
         throw 'The GitHub verification workflow is missing.'
